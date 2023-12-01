@@ -16,7 +16,7 @@ cors = CORS(app)
 def request_txt():
     percent = abs(float(request.headers['percent'])) / 100
     json_data = json.loads(request.data)
-    component_io = StringIO(json_data['subtract_component'])
+    component_io = StringIO(json_data['component'])
     component_df = pd.read_csv(component_io, sep=",", header=None)
     samples_io = StringIO(json_data['samples'])
     samples_df = pd.read_csv(samples_io, sep=",", header=None)

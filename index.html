@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="#" />
+
+    <title>auCalculator</title>
+
+    <script src="js/main.js"></script>
+
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form style="width: 66%">
+        <div class="center">
+            <h2>auCalculator</h2>
+        </div>
+        <div class="row">
+            <div class="column">
+                <a href="https://github.com/Daemon2017/auCalculator">auCalculator</a> это инструмент для G25,
+                позволяющий вычесть определенную компоненту из образца.
+            </div>
+            <div class="column">
+                <a href="https://github.com/Daemon2017/auCalculator">auCalculator</a> is a tool for G25,
+                that allows to subtract a specific component from a sample.
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="componentID">Компонент: </label>
+            </div>
+            <div class="column">
+                <label for="componentID">Component: </label>
+            </div>
+        </div>
+        <div>
+            <textarea id="componentID" rows="2" wrap="off" style="width: 100%"></textarea>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="percentID">Доля компонента (в процентах): </label>
+            </div>
+            <div class="column">
+                <label for="percentID">Component share (in percent): </label>
+            </div>
+        </div>
+        <div>
+            <textarea id="percentID" rows="1" wrap="off" style="width: 100%"></textarea>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="samplesID">Образцы: </label>
+            </div>
+            <div class="column">
+                <label for="samplesID">Samples: </label>
+            </div>
+        </div>
+        <div>
+            <textarea id="samplesID" rows="12" wrap="off" style="width: 100%"></textarea>
+        </div>
+        <div>
+            <input type="button" onClick="subtract()" value="Subtract" style="width: 100%" />
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="resultsID">Результаты: </label>
+            </div>
+            <div class="column">
+                <label for="resultsID">Results: </label>
+            </div>
+        </div>
+        <div>
+            <textarea id="resultsID" rows="12" wrap="off" style="width: 100%"></textarea>
+        </div>
+    </form>
+</body>
+
+</html>
