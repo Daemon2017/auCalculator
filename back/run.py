@@ -21,11 +21,11 @@ def request_txt():
     samples_io = StringIO(json_data['samples'])
     samples_df = pd.read_csv(samples_io, sep=",", header=None)
     component_df = component_df.drop([0], axis=1)
-    sample_names_df = pd.DataFrame(samples_df[0])
-    sample_names_df[0] = sample_names_df[0] + '_sub'
+    samples_names_df = pd.DataFrame(samples_df[0])
+    samples_names_df[0] = samples_names_df[0].str.replace(r'^([^:]+)', r'\1_sub', regex=True)
     samples_df = samples_df.drop([0], axis=1)
     calculated_df = pd.DataFrame((samples_df.values - percent * component_df.values[0]) / (1 - percent))
-    result_df = pd.concat([sample_names_df, calculated_df], axis=1)
+    result_df = pd.concat([samples_names_df, calculated_df], axis=1)
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 
