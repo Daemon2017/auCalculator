@@ -13,7 +13,7 @@ cors = CORS(app)
 
 
 @app.route('/subtract', methods=['POST'])
-def request_txt():
+def subtract():
     json_data = json.loads(request.data)
     component_names_df, component_data_df = get_names_data_df(json_data['component'])
     samples_names_df, samples_data_df = get_names_data_df(json_data['samples'])
