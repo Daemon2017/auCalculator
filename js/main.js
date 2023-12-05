@@ -10,7 +10,7 @@ function subtract() {
     }
     xhr.responseType = "arraybuffer";
 
-    xhr.open("POST", "https://bba5v6kp7pshugtkd9ii.containers.yandexcloud.net/subtract");
+    xhr.open("POST", "https://bba5v6kp7pshugtkd9ii.containers.yandexcloud.net/" + document.getElementById("actionID").value);
     xhr.setRequestHeader("percent", document.getElementById("percentID").value);
     xhr.setRequestHeader("Content-Type", "text/plain");
 

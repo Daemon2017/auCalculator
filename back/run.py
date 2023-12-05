@@ -24,6 +24,18 @@ def subtract():
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 
+@app.route('/add', methods=['POST'])
+def add():
+    json_data = json.loads(request.data)
+    component_names_df, component_data_df = get_names_data_df(json_data['component'])
+    samples_names_df, samples_data_df = get_names_data_df(json_data['samples'])
+    samples_names_df[0] = samples_names_df[0].str.replace(r'^([^:]+)', r'\1_add', regex=True)
+    percent = abs(float(request.headers['percent'])) / 100
+    calculated_data_df = pd.DataFrame((samples_data_df.values + percent * component_data_df.values[0]) / (1 + percent))
+    result_df = pd.concat([samples_names_df, calculated_data_df], axis=1)
+    return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
+
+
 def get_names_data_df(data):
     data_io = StringIO(data)
     data_df = pd.read_csv(data_io, sep=",", header=None)

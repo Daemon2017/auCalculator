@@ -75,6 +75,28 @@
         <div>
             <textarea id="samplesID" rows="12" wrap="off" style="width: 100%"></textarea>
         </div>
+        <div class="row">
+            <div class="column">
+                <label for="actionID">Действие: </label>
+            </div>
+            <div class="column">
+                <label for="actionID">Action: </label>
+            </div>
+        </div>
+        <div class="center">
+            <select id="actionID" style="width: 100%">
+                <option value="subtract">Subtract</option>
+                <option value="add">Add</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="column">
+                Предупреждение: подготовка ответа может занять до 30 секунд.
+            </div>
+            <div class="column">
+                Warning: it may take up to 30 seconds to prepare a response.
+            </div>
+        </div>
         <div>
             <input type="button" onClick="subtract()" value="Subtract" style="width: 100%" />
         </div>
