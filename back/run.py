@@ -36,6 +36,15 @@ def add():
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 
+@app.route('/average', methods=['POST'])
+def average():
+    json_data = json.loads(request.data)
+    samples_names_df, samples_data_df = get_names_data_df(json_data['samples'])
+    result_df = pd.DataFrame([samples_data_df.mean(axis=0)])
+    result_df.insert(loc=0, column=0, value='average')
+    return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
+
+
 def get_names_data_df(data):
     data_io = StringIO(data)
     data_df = pd.read_csv(data_io, sep=",", header=None)
