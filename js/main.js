@@ -1,4 +1,4 @@
-function subtract() {
+function process() {
     document.getElementById("resultsID").value = "";
     var xhr = new XMLHttpRequest();
 
@@ -12,6 +12,7 @@ function subtract() {
 
     xhr.open("POST", "https://bba5v6kp7pshugtkd9ii.containers.yandexcloud.net/" + document.getElementById("actionID").value);
     xhr.setRequestHeader("percent", document.getElementById("percentID").value);
+    xhr.setRequestHeader("prefix", document.getElementById("prefixID").value);
     xhr.setRequestHeader("Content-Type", "text/plain");
 
     var body = new Object();
@@ -21,3 +22,20 @@ function subtract() {
 
     xhr.send(jsonBody);
 }
+
+function toggleFields() {
+    const action = document.getElementById("actionID").value;
+    const needsComponent = (action === "subtract" || action === "add" || action === "group");
+    const needsPercent = (action === "subtract" || action === "add");
+
+    const percentField = document.getElementById("percentID");
+    const componentField = document.getElementById("componentID");
+
+    percentField.disabled = !needsPercent;
+    percentField.style.backgroundColor = needsPercent ? "white" : "#f0f0f0";
+
+    componentField.disabled = !needsComponent;
+    componentField.style.backgroundColor = needsComponent ? "white" : "#f0f0f0";
+}
+
+window.onload = toggleFields;

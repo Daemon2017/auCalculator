@@ -51,7 +51,7 @@
             </div>
         </div>
         <div>
-            <textarea id="componentID" rows="3" wrap="off" style="width: 100%"></textarea>
+            <textarea id="componentID" rows="9" wrap="off" style="width: 100%"></textarea>
         </div>
         <div class="row">
             <div class="column">
@@ -73,7 +73,14 @@
             </div>
         </div>
         <div>
-            <textarea id="samplesID" rows="12" wrap="off" style="width: 100%"></textarea>
+            <textarea id="samplesID" rows="9" wrap="off" style="width: 100%"></textarea>
+        </div>
+        <div class="row">
+            <div class="column"><label for="prefixID">Префикс: </label></div>
+            <div class="column"><label for="prefixID">Prefix: </label></div>
+        </div>
+        <div>
+            <textarea id="prefixID" rows="1" wrap="off" style="width: 100%"></textarea>
         </div>
         <div class="row">
             <div class="column">
@@ -84,10 +91,12 @@
             </div>
         </div>
         <div class="center">
-            <select id="actionID" style="width: 100%">
+            <select id="actionID" style="width: 100%" onchange="toggleFields()">
                 <option value="subtract">Subtract</option>
                 <option value="add">Add</option>
-                <option value="average">Average</option>
+                <option value="average">Total Average</option>
+                <option value="pair">Pair Average</option>
+                <option value="group">Group Average</option>
             </select>
         </div>
         <div class="row">
@@ -99,7 +108,7 @@
             </div>
         </div>
         <div>
-            <input type="button" onClick="subtract()" value="Subtract" style="width: 100%" />
+            <input type="button" onClick="process()" value="Process" style="width: 100%" />
         </div>
         <div class="row">
             <div class="column">
@@ -110,7 +119,7 @@
             </div>
         </div>
         <div>
-            <textarea id="resultsID" rows="12" wrap="off" style="width: 100%"></textarea>
+            <textarea id="resultsID" rows="9" wrap="off" style="width: 100%"></textarea>
         </div>
     </form>
 </body>
