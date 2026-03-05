@@ -14,12 +14,6 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-def apply_prefix(df, prefix):
-    if prefix:
-        df[0] = prefix + df[0].astype(str)
-    return df
-
-
 @app.route('/subtract', methods=['POST'])
 def subtract():
     json_data = json.loads(request.data)
@@ -50,7 +44,7 @@ def total_average():
     samples_names_df, samples_data_df = utils.get_names_data_df(json_data['samples'])
     result_df = pd.DataFrame([samples_data_df.mean(axis=0)])
     result_df.insert(loc=0, column=0, value='average')
-    result_df = apply_prefix(result_df, request.headers.get('prefix'))
+    result_df = utils.apply_prefix(result_df, request.headers.get('prefix'))
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 
@@ -67,7 +61,7 @@ def pair_average():
         pairs_list.append(res_row)
 
     result_df = pd.DataFrame(pairs_list)
-    result_df = apply_prefix(result_df, request.headers.get('prefix'))
+    result_df = utils.apply_prefix(result_df, request.headers.get('prefix'))
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 
@@ -85,7 +79,7 @@ def group_average():
             results.append([combined_name] + avg_coords.tolist())
 
     result_df = pd.DataFrame(results)
-    result_df = apply_prefix(result_df, request.headers.get('prefix'))
+    result_df = utils.apply_prefix(result_df, request.headers.get('prefix'))
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
 
 

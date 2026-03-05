@@ -4,7 +4,7 @@ function process() {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            var result = String.fromCharCode.apply(null, new Uint8Array(this.response));
+            var result = new TextDecoder("utf-8").decode(new Uint8Array(this.response));
             document.getElementById("resultsID").value = result;
         }
     }
