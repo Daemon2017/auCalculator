@@ -4,7 +4,6 @@ from itertools import combinations
 import pandas as pd
 from flask import Flask, request, Response
 from flask_cors import CORS
-from sklearn.decomposition import PCA
 from waitress import serve
 
 import utils
@@ -44,20 +43,6 @@ def add():
             combined_name = f"{samples_names_df.iloc[i, 0]}_plus_{component_names_df.iloc[j, 0]}"
             calc_coords = (samples_data_df.iloc[i] + percent * component_data_df.iloc[j]) / (1 + percent)
             results.append([combined_name] + calc_coords.tolist())
-    result_df = pd.DataFrame(results)
-    result_df = utils.apply_prefix(result_df, request.headers.get('prefix'))
-    return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
-
-
-@app.route('/reconstruct', methods=['POST'])
-def reconstruct_ancestral():
-    json_data = json.loads(request.data)
-    samples_names_df, samples_data_df = utils.get_names_data_df(json_data['samples'])
-    pca = PCA(n_components=1)
-    transformed = pca.fit_transform(samples_data_df.values)
-    reconstructed_vector = pca.inverse_transform(transformed)
-    ancestral_coords = reconstructed_vector.mean(axis=0)
-    results = [["reconstructed"] + ancestral_coords.tolist()]
     result_df = pd.DataFrame(results)
     result_df = utils.apply_prefix(result_df, request.headers.get('prefix'))
     return Response(result_df.to_csv(sep=',', index=False, header=False), mimetype=TEXT_CSV)
