@@ -10,7 +10,10 @@ function process() {
     }
     xhr.responseType = "arraybuffer";
 
-    xhr.open("POST", "https://bba5v6kp7pshugtkd9ii.containers.yandexcloud.net/" + document.getElementById("actionID").value);
+    var baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:8080/'
+        : 'https://bba5v6kp7pshugtkd9ii.containers.yandexcloud.net/';
+    xhr.open("POST", baseUrl  + document.getElementById("actionID").value);
     xhr.setRequestHeader("percent", document.getElementById("percentID").value);
     xhr.setRequestHeader("prefix", document.getElementById("prefixID").value);
     xhr.setRequestHeader("Content-Type", "text/plain");
@@ -18,14 +21,14 @@ function process() {
     var body = new Object();
     body.component = document.getElementById("componentID").value;
     body.samples = document.getElementById("samplesID").value;
-    var jsonBody= JSON.stringify(body);
+    var jsonBody = JSON.stringify(body);
 
     xhr.send(jsonBody);
 }
 
 function toggleFields() {
     const action = document.getElementById("actionID").value;
-    const needsComponent = (action === "subtract" || action === "add" || action === "group");
+    const needsComponent = (action === "subtract" || action === "add" || action === "group_average");
     const needsPercent = (action === "subtract" || action === "add");
 
     const percentField = document.getElementById("percentID");
